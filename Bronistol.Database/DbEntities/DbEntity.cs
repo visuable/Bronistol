@@ -8,7 +8,11 @@ namespace Bronistol.Database.DbEntities
     public class DbEntity
     {
         public int Id { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime Created { get; set; }
+
+        public DbEntity()
+        {
+            Created = DateTime.UtcNow;
+        }
     }
 }

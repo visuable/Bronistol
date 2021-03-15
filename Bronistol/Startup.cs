@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bronistol.Core.Services.BookingService;
+using Bronistol.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bronistol
 {
@@ -27,6 +30,8 @@ namespace Bronistol
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<BronistolContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IBookingService, BookingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

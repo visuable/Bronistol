@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Bronistol.Database.DbEntities
 {
-    public class NoteEntity
+    public class NoteEntity : DbEntity
     {
         [AllowNull]
         public string Description { get; set; }
