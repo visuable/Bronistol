@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using Bronistol.Core.Services.BookingService;
 using Bronistol.Database;
 using Microsoft.EntityFrameworkCore;
+using Bronistol.Core.HostedServices.PriorityService;
+using System.Text.Json.Serialization;
 
 namespace Bronistol
 {
@@ -29,9 +31,14 @@ namespace Bronistol
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             services.AddDbContext<BronistolContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IBookingService, BookingService>();
+            services.AddHostedService<PriorityService>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
