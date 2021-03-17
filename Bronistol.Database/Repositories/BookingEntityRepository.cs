@@ -1,6 +1,8 @@
 ﻿using Bronistol.Database.DbEntities;
+using Bronistol.Database.Extensions;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 using System;
 using System.Collections.Generic;
@@ -22,50 +24,45 @@ namespace Bronistol.Database.Repositories
         public async Task<BookingEntity> GetAsync(Expression<Func<BookingEntity, bool>> expression)
         {
             return await _bronistolContext.BookingEntities
-                .Include(x => x.AssignedDate)
-                .Include(x => x.SubmitDate)
-                .Include(x => x.Reason)
-                .Include(x => x.Priority)
-                .Include(x => x.Note)
-                .Include(x => x.Name).FirstOrDefaultAsync(expression);
+                .IncludeBookingEntity()
+                .FirstOrDefaultAsync(expression);
         }
 
         public async Task AddAsync(BookingEntity entity)
         {
             await _bronistolContext.BookingEntities.AddAsync(entity);
-            await SaveChangesAsync();
         }
 
         public async Task UpdateAsync(BookingEntity entity)
         {
             _bronistolContext.BookingEntities.Update(entity);
-            await SaveChangesAsync();
         }
 
         public async Task RemoveAsync(Expression<Func<BookingEntity, bool>> expression)
         {
             var entity = await _bronistolContext.BookingEntities.FirstOrDefaultAsync(expression);
             _bronistolContext.BookingEntities.Remove(entity);
-            await SaveChangesAsync();
-        }
-        private async Task SaveChangesAsync()
-        {
-            await _bronistolContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<BookingEntity>> GetAllAsync()
         {
-            return await _bronistolContext.BookingEntities.ToListAsync();
+            return await _bronistolContext.BookingEntities.IncludeBookingEntity().ToListAsync();
         }
 
         public async Task<BookingEntity> FirstAsync()
         {
-            return await _bronistolContext.BookingEntities.FirstOrDefaultAsync();
+            return await _bronistolContext.BookingEntities.IncludeBookingEntity().FirstOrDefaultAsync();
         }
-
         public void Dispose()
         {
+            _bronistolContext.SaveChanges();
             _bronistolContext.Dispose();
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            await _bronistolContext.SaveChangesAsync();
+            await _bronistolContext.DisposeAsync();
         }
     }
 }
