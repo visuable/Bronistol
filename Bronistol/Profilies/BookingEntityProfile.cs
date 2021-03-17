@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 
 using Bronistol.Database.DbEntities;
-using Bronistol.Models.EntitiesDto;
+using Bronistol.Database.EntitiesDto;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,21 +20,26 @@ namespace Bronistol.Profilies
                 .ForMember(x => x.Note, y => y.MapFrom(z => z.Note))
                 .ForMember(x => x.Priority, y => y.MapFrom(z => z.Priority))
                 .ForMember(x => x.SubmitDate, y => y.MapFrom(z => z.SubmitDate))
-                .ForMember(x => x.AssignedDate, y => y.MapFrom(z => z.AssignedDate));
+                .ForMember(x => x.AssignedDate, y => y.MapFrom(z => z.AssignedDate))
+                .ReverseMap();
             CreateMap<ReasonEntityDto, ReasonEntity>()
-                .ForMember(x => x.Description, y => y.MapFrom(z => z.Description));
+                .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
+                .ReverseMap();
             CreateMap<NoteEntityDto, NoteEntity>()
-                .ForMember(x => x.Description, y => y.MapFrom(z => z.Description));
+                .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
+                .ReverseMap();
             CreateMap<PriorityEntityDto, PriorityEntity>()
-                .ForMember(x => x.Priority, y => y.MapFrom(z => z.Priority));
+                .ForMember(x => x.Priority, y => y.MapFrom(z => z.Priority))
+                .ReverseMap();
             CreateMap<NameEntityDto, NameEntity>()
                 .ForMember(x => x.ShortName, y => y.MapFrom(z => z.ShortName))
                 .ForMember(x => x.FullName, y => y.MapFrom(z => z.FullName))
-                .ForMember(x => x.OrganizationName, y => y.MapFrom(z => z.OrganizationName));
+                .ForMember(x => x.OrganizationName, y => y.MapFrom(z => z.OrganizationName))
+                .ReverseMap();
             CreateMap<DateEntityDto, DateEntity>()
-                .ForMember(x => x.ShortDate, y => y.MapFrom(z => z.ShortDate))
-                .ForMember(x => x.DisplayDate, y => y.MapFrom(z => z.DisplayDate))
-                .AfterMap((x, y) => y.Date = DateTime.Parse(x.ShortDate));
+                .ForMember(x => x.Date, y => y.MapFrom(z => DateTime.ParseExact(z.ShortDate, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)));
+            CreateMap<DateEntity, DateEntityDto>()
+                .ForMember(x => x.ShortDate, y => y.MapFrom(z => z.Date.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)));
         }
     }
 }
