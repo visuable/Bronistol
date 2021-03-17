@@ -7,7 +7,5 @@ namespace Bronistol.Database.DbEntities
     public class DateEntity : DbEntity
     {
         public DateTime Date { get; set; }
-        public string ShortDate { get; set; }
-        public string DisplayDate { get; set; }
     }
 }

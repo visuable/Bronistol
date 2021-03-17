@@ -11,6 +11,8 @@ namespace Bronistol.Database.DbEntities
         public PriorityEntity Priority { get; set; }
         public NameEntity Name { get; set; }
         public DateEntity SubmitDate { get; set; }
+        public int SubmitDateId { get; set; }
         public DateEntity AssignedDate { get; set; }
+        public int AssignedDateId { get; set; }
     }
 }
