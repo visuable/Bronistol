@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using Bronistol.Database.DbEntities;
 using Microsoft.Extensions.DependencyInjection;
+using Bronistol.Database.Repositories;
+using Bronistol.Core.Extensions;
 
 namespace Bronistol.Core.HostedServices.PriorityService
 {
@@ -23,36 +25,31 @@ namespace Bronistol.Core.HostedServices.PriorityService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using var bronistolContext = _serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<BronistolContext>();
+            using var bookingEntityRepository = _serviceScopeFactory.GetServiceFromScope<IRepository<BookingEntity>>();
             while (!stoppingToken.IsCancellationRequested)
             {
-                var firstEntity = await bronistolContext.BookingEntities.FirstOrDefaultAsync();
+                var firstEntity = await bookingEntityRepository.FirstAsync();
+                if (firstEntity == null) continue;
                 await Offset(firstEntity);
             }
         }
-        private async Task Offset(BookingEntity bookingEntity)
+        private async Task Offset(BookingEntity currentEntity)
         {
-            using var bronistolContext = _serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<BronistolContext>();
-            var nextEntity = await bronistolContext.BookingEntities
-                .FirstOrDefaultAsync(x => x.AssignedDate.Date == bookingEntity.AssignedDate.Date);
-            if(nextEntity != null && nextEntity.Priority.Priority > bookingEntity.Priority.Priority)
+            using var bookingEntityRepository = _serviceScopeFactory.GetServiceFromScope<IRepository<BookingEntity>>();
+            var nextEntity = await bookingEntityRepository
+                .GetAsync(x => x.SubmitDate.Date.EqualWithoutSeconds(currentEntity.SubmitDate.Date));
+            if (nextEntity == null) return;
+            else if (nextEntity.Priority.Priority > currentEntity.Priority.Priority)
             {
-                var priorityEntityElapsedTime = nextEntity.AssignedDate.Date - nextEntity.SubmitDate.Date;
-                bookingEntity.AssignedDate.Date = bookingEntity.AssignedDate.Date - priorityEntityElapsedTime;
-                await Offset(nextEntity);
+                currentEntity.SubmitDate.Date = nextEntity.AssignedDate.Date;
+                await bookingEntityRepository.UpdateAsync(currentEntity);
             }
-            if (nextEntity != null && nextEntity.Priority.Priority < bookingEntity.Priority.Priority)
+            else if (nextEntity.Priority.Priority < currentEntity.Priority.Priority)
             {
-                var priorityEntityElapsedTime = nextEntity.AssignedDate.Date - nextEntity.SubmitDate.Date;
-                bookingEntity.AssignedDate.Date = bookingEntity.AssignedDate.Date + priorityEntityElapsedTime;
-                await Offset(nextEntity);
+                nextEntity.SubmitDate.Date = currentEntity.AssignedDate.Date;
+                await bookingEntityRepository.UpdateAsync(nextEntity);
             }
-            else
-            {
-                return;
-            }
-            bronistolContext.BookingEntities.Update(bookingEntity);
-            await bronistolContext.SaveChangesAsync();
+            await Offset(nextEntity);
         }
     }
 }
