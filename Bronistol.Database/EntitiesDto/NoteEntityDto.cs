@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bronistol.Models.EntitiesDto
+namespace Bronistol.Database.EntitiesDto
 {
     public class NoteEntityDto
     {
