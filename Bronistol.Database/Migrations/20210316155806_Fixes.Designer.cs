@@ -3,15 +3,17 @@ using System;
 using Bronistol.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Bronistol.Database.Migrations
 {
     [DbContext(typeof(BronistolContext))]
-    partial class BronistolContextModelSnapshot : ModelSnapshot
+    [Migration("20210316155806_Fixes")]
+    partial class Fixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +28,7 @@ namespace Bronistol.Database.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("AssignedDateId")
+                    b.Property<int?>("AssignedDateId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Created")
@@ -44,7 +46,7 @@ namespace Bronistol.Database.Migrations
                     b.Property<int?>("ReasonId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("SubmitDateId")
+                    b.Property<int?>("SubmitDateId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -164,9 +166,7 @@ namespace Bronistol.Database.Migrations
                 {
                     b.HasOne("Bronistol.Database.DbEntities.DateEntity", "AssignedDate")
                         .WithMany()
-                        .HasForeignKey("AssignedDateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AssignedDateId");
 
                     b.HasOne("Bronistol.Database.DbEntities.NameEntity", "Name")
                         .WithMany()
@@ -186,9 +186,7 @@ namespace Bronistol.Database.Migrations
 
                     b.HasOne("Bronistol.Database.DbEntities.DateEntity", "SubmitDate")
                         .WithMany()
-                        .HasForeignKey("SubmitDateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubmitDateId");
 
                     b.Navigation("AssignedDate");
 
