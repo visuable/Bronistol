@@ -1,6 +1,5 @@
-﻿using Bronistol.Core.Services.BookingService;
+﻿
 using Bronistol.Models.Json;
-using Bronistol.Models.EntitiesDto;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Bronistol.Database.DbEntities;
+using Bronistol.Core.Supports;
+using Bronistol.Database.EntitiesDto;
+using Bronistol.Models;
 
 namespace Bronistol.Controllers
 {
@@ -19,20 +21,66 @@ namespace Bronistol.Controllers
     [ApiController]
     public class BronistolController : ControllerBase
     {
-        private IBookingService _bookingService;
+        private IBookingSupport _bookingSupport;
         private IMapper _mapper;
-        public BronistolController(IBookingService bookingService, IMapper mapper)
+        public BronistolController(IBookingSupport bookingSupport, IMapper mapper)
         {
-            _bookingService = bookingService;
+            _bookingSupport = bookingSupport;
             _mapper = mapper;
         }
         [HttpPost]
-        [Route(nameof(Book))]
-        public async Task<IActionResult> Book(JsonRequest<BookingEntityDto> request)
+        [Route(nameof(BookTable))]
+        public async Task<IActionResult> BookTable(JsonRequest<BookingEntityModel> request)
         {
-            var bookingEntity = _mapper.Map<BookingEntity>(request.Item);
-            await _bookingService.Add(bookingEntity);
+            var bookingEntityDto = new BookingEntityDto()
+            {
+                Name = new NameEntityDto()
+                {
+                    ShortName = request.Item.MeetName
+                },
+                Priority = new PriorityEntityDto()
+                {
+                    Priority = request.Item.Priority
+                },
+                Note = new NoteEntityDto()
+                {
+                    Description = request.Item.Note
+                },
+                Reason = new ReasonEntityDto()
+                {
+                    Description = request.Item.Note
+                },
+                AssignedDate = new DateEntityDto()
+                {
+                    ShortDate = request.Item.AssignedDate
+                },
+                SubmitDate = new DateEntityDto()
+                {
+                    ShortDate = request.Item.SubmitDate
+                }
+            };
+            await _bookingSupport.AddBookingEntity(bookingEntityDto);
             return Ok(new JsonResponse<bool>() { Item = true });
+        }
+        [HttpPost]
+        [Route(nameof(GetReservedTables))]
+        public async Task<IActionResult> GetReservedTables(JsonRequest<object> request)
+        {
+            var bookingEntitiesDto = await _bookingSupport.GetBookingEntities();
+            return Ok(new JsonResponse<List<BookingEntityDto>> { Item = bookingEntitiesDto });
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveTable(JsonRequest<BookingEntityRemoveModel> request)
+        {
+            var bookingEntityDto = new BookingEntityDto()
+            {
+                Name = new NameEntityDto()
+                {
+                    ShortName = request.Item.Name
+                }
+            };
+            await _bookingSupport.RemoveBookingEntity(bookingEntityDto);
+            return Ok(new JsonResponse<bool> { Item = true });
         }
     }
 }

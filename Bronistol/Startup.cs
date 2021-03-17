@@ -11,11 +11,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Bronistol.Core.Services.BookingService;
 using Bronistol.Database;
 using Microsoft.EntityFrameworkCore;
 using Bronistol.Core.HostedServices.PriorityService;
 using System.Text.Json.Serialization;
+using Bronistol.Core.Supports;
+using Bronistol.Database.Repositories;
+using Bronistol.Database.DbEntities;
 
 namespace Bronistol
 {
@@ -36,7 +38,8 @@ namespace Bronistol
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
             services.AddDbContext<BronistolContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<IRepository<BookingEntity>, BookingEntityRepository>();
+            services.AddScoped<IBookingSupport, BookingSupport>();
             services.AddHostedService<PriorityService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen();
