@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bronistol.Core\Bronistol.Core.csproj" />
-    <ProjectReference Include="..\Bronistol.Database\Bronistol.Database.csproj" />
   </ItemGroup>
 
 

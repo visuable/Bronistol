@@ -22,6 +22,7 @@ namespace Bronistol
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureLogging(x => x.AddConsole());
                 });
     }
 }

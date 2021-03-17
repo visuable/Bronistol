@@ -70,6 +70,7 @@ namespace Bronistol.Controllers
             return Ok(new JsonResponse<List<BookingEntityDto>> { Item = bookingEntitiesDto });
         }
         [HttpPost]
+        [Route(nameof(RemoveTable))]
         public async Task<IActionResult> RemoveTable(JsonRequest<BookingEntityRemoveModel> request)
         {
             var bookingEntityDto = new BookingEntityDto()
