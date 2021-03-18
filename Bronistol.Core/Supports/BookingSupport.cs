@@ -41,7 +41,6 @@ namespace Bronistol.Core.Supports
 
         public async Task RemoveBookingEntity(BookingEntityDto bookingEntityDto)
         {
-            //I will add an extension. 
             await _bookingEntityRepository.RemoveAsync(x => x.Name.ShortName == bookingEntityDto.Name.ShortName);
         }
     }
