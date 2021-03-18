@@ -1,20 +1,16 @@
-﻿using Bronistol.Database.DbEntities;
-using Bronistol.Database.Extensions;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
+using Bronistol.Database.DbEntities;
+using Bronistol.Database.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bronistol.Database.Repositories
 {
     public class BookingEntityRepository : IRepository<BookingEntity>
     {
-        private BronistolContext _bronistolContext;
+        private readonly BronistolContext _bronistolContext;
 
         public BookingEntityRepository(BronistolContext bronistolContext)
         {
@@ -53,6 +49,7 @@ namespace Bronistol.Database.Repositories
         {
             return await _bronistolContext.BookingEntities.IncludeBookingEntity().FirstOrDefaultAsync();
         }
+
         public void Dispose()
         {
             _bronistolContext.SaveChanges();

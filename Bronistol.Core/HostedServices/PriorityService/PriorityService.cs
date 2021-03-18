@@ -1,23 +1,17 @@
-﻿using Bronistol.Database;
-
-using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
-using Bronistol.Database.DbEntities;
-using Microsoft.Extensions.DependencyInjection;
-using Bronistol.Database.Repositories;
 using Bronistol.Core.Extensions;
+using Bronistol.Database.DbEntities;
+using Bronistol.Database.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Bronistol.Core.HostedServices.PriorityService
 {
     public class PriorityService : BackgroundService
     {
-        private IServiceScopeFactory _serviceScopeFactory;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
+
         public PriorityService(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
@@ -33,18 +27,23 @@ namespace Bronistol.Core.HostedServices.PriorityService
                 await Offset(firstEntity);
             }
         }
+
         private async Task Offset(BookingEntity currentEntity)
         {
             using var bookingEntityRepository = _serviceScopeFactory.GetServiceFromScope<IRepository<BookingEntity>>();
             var nextEntity = await bookingEntityRepository
-                .GetAsync(x => 
-                x.SubmitDate.Date.Year == currentEntity.SubmitDate.Date.Year
-                && x.SubmitDate.Date.Month == currentEntity.SubmitDate.Date.Month
-                && x.SubmitDate.Date.Day == currentEntity.SubmitDate.Date.Day
-                && x.SubmitDate.Date.Hour == currentEntity.SubmitDate.Date.Hour
-                && x.SubmitDate.Date.Minute == currentEntity.SubmitDate.Date.Minute && x.Id != currentEntity.Id);
-            if (nextEntity == null) return;
-            else if (nextEntity.Priority.Priority > currentEntity.Priority.Priority)
+                .GetAsync(x =>
+                    x.SubmitDate.Date.Year == currentEntity.SubmitDate.Date.Year
+                    && x.SubmitDate.Date.Month == currentEntity.SubmitDate.Date.Month
+                    && x.SubmitDate.Date.Day == currentEntity.SubmitDate.Date.Day
+                    && x.SubmitDate.Date.Hour == currentEntity.SubmitDate.Date.Hour
+                    && x.SubmitDate.Date.Minute == currentEntity.SubmitDate.Date.Minute && x.Id != currentEntity.Id);
+            if (nextEntity == null)
+            {
+                return;
+            }
+
+            if (nextEntity.Priority.Priority > currentEntity.Priority.Priority)
             {
                 currentEntity.SubmitDate.Date = nextEntity.AssignedDate.Date;
                 await bookingEntityRepository.UpdateAsync(currentEntity);
@@ -54,7 +53,11 @@ namespace Bronistol.Core.HostedServices.PriorityService
                 nextEntity.SubmitDate.Date = currentEntity.AssignedDate.Date;
                 await bookingEntityRepository.UpdateAsync(nextEntity);
             }
-            else return;
+            else
+            {
+                return;
+            }
+
             await Offset(nextEntity);
         }
     }

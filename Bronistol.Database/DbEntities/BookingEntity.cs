@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Bronistol.Database.DbEntities
+﻿namespace Bronistol.Database.DbEntities
 {
     public class BookingEntity : DbEntity
     {

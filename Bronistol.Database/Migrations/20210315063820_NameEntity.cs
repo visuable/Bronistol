@@ -9,37 +9,35 @@ namespace Bronistol.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "NameId",
-                table: "BookingEntities",
-                type: "integer",
+                "NameId",
+                "BookingEntities",
+                "integer",
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "NameEntity",
-                columns: table => new
+                "NameEntity",
+                table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ShortName = table.Column<string>(type: "text", nullable: true),
-                    FullName = table.Column<string>(type: "text", nullable: true),
-                    OrganizationName = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    Id = table.Column<int>("integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ShortName = table.Column<string>("text", nullable: true),
+                    FullName = table.Column<string>("text", nullable: true),
+                    OrganizationName = table.Column<string>("text", nullable: true),
+                    Created = table.Column<DateTime>("timestamp without time zone", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NameEntity", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_NameEntity", x => x.Id); });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookingEntities_NameId",
-                table: "BookingEntities",
-                column: "NameId");
+                "IX_BookingEntities_NameId",
+                "BookingEntities",
+                "NameId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_NameEntity_NameId",
-                table: "BookingEntities",
-                column: "NameId",
-                principalTable: "NameEntity",
+                "FK_BookingEntities_NameEntity_NameId",
+                "BookingEntities",
+                "NameId",
+                "NameEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -47,19 +45,19 @@ namespace Bronistol.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_NameEntity_NameId",
-                table: "BookingEntities");
+                "FK_BookingEntities_NameEntity_NameId",
+                "BookingEntities");
 
             migrationBuilder.DropTable(
-                name: "NameEntity");
+                "NameEntity");
 
             migrationBuilder.DropIndex(
-                name: "IX_BookingEntities_NameId",
-                table: "BookingEntities");
+                "IX_BookingEntities_NameId",
+                "BookingEntities");
 
             migrationBuilder.DropColumn(
-                name: "NameId",
-                table: "BookingEntities");
+                "NameId",
+                "BookingEntities");
         }
     }
 }

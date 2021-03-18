@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Bronistol.Models.Json
+﻿namespace Bronistol.Models.Json
 {
     public class JsonRequest<T>
     {

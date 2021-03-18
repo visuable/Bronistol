@@ -7,17 +7,17 @@ namespace Bronistol.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_DateEntity_AssignedDateId",
-                table: "BookingEntities");
+                "FK_BookingEntities_DateEntity_AssignedDateId",
+                "BookingEntities");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_DateEntity_SubmitDateId",
-                table: "BookingEntities");
+                "FK_BookingEntities_DateEntity_SubmitDateId",
+                "BookingEntities");
 
             migrationBuilder.AlterColumn<int>(
-                name: "SubmitDateId",
-                table: "BookingEntities",
-                type: "integer",
+                "SubmitDateId",
+                "BookingEntities",
+                "integer",
                 nullable: false,
                 defaultValue: 0,
                 oldClrType: typeof(int),
@@ -25,9 +25,9 @@ namespace Bronistol.Database.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<int>(
-                name: "AssignedDateId",
-                table: "BookingEntities",
-                type: "integer",
+                "AssignedDateId",
+                "BookingEntities",
+                "integer",
                 nullable: false,
                 defaultValue: 0,
                 oldClrType: typeof(int),
@@ -35,18 +35,18 @@ namespace Bronistol.Database.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_DateEntity_AssignedDateId",
-                table: "BookingEntities",
-                column: "AssignedDateId",
-                principalTable: "DateEntity",
+                "FK_BookingEntities_DateEntity_AssignedDateId",
+                "BookingEntities",
+                "AssignedDateId",
+                "DateEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_DateEntity_SubmitDateId",
-                table: "BookingEntities",
-                column: "SubmitDateId",
-                principalTable: "DateEntity",
+                "FK_BookingEntities_DateEntity_SubmitDateId",
+                "BookingEntities",
+                "SubmitDateId",
+                "DateEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -54,42 +54,42 @@ namespace Bronistol.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_DateEntity_AssignedDateId",
-                table: "BookingEntities");
+                "FK_BookingEntities_DateEntity_AssignedDateId",
+                "BookingEntities");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_DateEntity_SubmitDateId",
-                table: "BookingEntities");
+                "FK_BookingEntities_DateEntity_SubmitDateId",
+                "BookingEntities");
 
             migrationBuilder.AlterColumn<int>(
-                name: "SubmitDateId",
-                table: "BookingEntities",
-                type: "integer",
+                "SubmitDateId",
+                "BookingEntities",
+                "integer",
                 nullable: true,
                 oldClrType: typeof(int),
                 oldType: "integer");
 
             migrationBuilder.AlterColumn<int>(
-                name: "AssignedDateId",
-                table: "BookingEntities",
-                type: "integer",
+                "AssignedDateId",
+                "BookingEntities",
+                "integer",
                 nullable: true,
                 oldClrType: typeof(int),
                 oldType: "integer");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_DateEntity_AssignedDateId",
-                table: "BookingEntities",
-                column: "AssignedDateId",
-                principalTable: "DateEntity",
+                "FK_BookingEntities_DateEntity_AssignedDateId",
+                "BookingEntities",
+                "AssignedDateId",
+                "DateEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_DateEntity_SubmitDateId",
-                table: "BookingEntities",
-                column: "SubmitDateId",
-                principalTable: "DateEntity",
+                "FK_BookingEntities_DateEntity_SubmitDateId",
+                "BookingEntities",
+                "SubmitDateId",
+                "DateEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }

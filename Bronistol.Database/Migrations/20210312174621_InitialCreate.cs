@@ -9,153 +9,146 @@ namespace Bronistol.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DateEntities",
-                columns: table => new
+                "DateEntities",
+                table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ShortDate = table.Column<string>(type: "text", nullable: true),
-                    DisplayDate = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    Id = table.Column<int>("integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Date = table.Column<DateTime>("timestamp without time zone", nullable: false),
+                    ShortDate = table.Column<string>("text", nullable: true),
+                    DisplayDate = table.Column<string>("text", nullable: true),
+                    Created = table.Column<DateTime>("timestamp without time zone", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DateEntities", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_DateEntities", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "NoteEntities",
-                columns: table => new
+                "NoteEntities",
+                table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    Id = table.Column<int>("integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Description = table.Column<string>("text", nullable: true),
+                    Created = table.Column<DateTime>("timestamp without time zone", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NoteEntities", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_NoteEntities", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "PriorityEntity",
-                columns: table => new
+                "PriorityEntity",
+                table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Points = table.Column<int>(type: "integer", nullable: false),
-                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    Id = table.Column<int>("integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Points = table.Column<int>("integer", nullable: false),
+                    Created = table.Column<DateTime>("timestamp without time zone", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PriorityEntity", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_PriorityEntity", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "ReasonEntities",
-                columns: table => new
+                "ReasonEntities",
+                table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    Id = table.Column<int>("integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Description = table.Column<string>("text", nullable: true),
+                    Created = table.Column<DateTime>("timestamp without time zone", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReasonEntities", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_ReasonEntities", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "BookingEntities",
-                columns: table => new
+                "BookingEntities",
+                table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ReasonId = table.Column<int>(type: "integer", nullable: true),
-                    NoteId = table.Column<int>(type: "integer", nullable: true),
-                    PriorityId = table.Column<int>(type: "integer", nullable: true),
-                    SubmitDateId = table.Column<int>(type: "integer", nullable: true),
-                    AssignedDateId = table.Column<int>(type: "integer", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    Id = table.Column<int>("integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ReasonId = table.Column<int>("integer", nullable: true),
+                    NoteId = table.Column<int>("integer", nullable: true),
+                    PriorityId = table.Column<int>("integer", nullable: true),
+                    SubmitDateId = table.Column<int>("integer", nullable: true),
+                    AssignedDateId = table.Column<int>("integer", nullable: true),
+                    Created = table.Column<DateTime>("timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookingEntities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookingEntities_DateEntities_AssignedDateId",
-                        column: x => x.AssignedDateId,
-                        principalTable: "DateEntities",
-                        principalColumn: "Id",
+                        "FK_BookingEntities_DateEntities_AssignedDateId",
+                        x => x.AssignedDateId,
+                        "DateEntities",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BookingEntities_DateEntities_SubmitDateId",
-                        column: x => x.SubmitDateId,
-                        principalTable: "DateEntities",
-                        principalColumn: "Id",
+                        "FK_BookingEntities_DateEntities_SubmitDateId",
+                        x => x.SubmitDateId,
+                        "DateEntities",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BookingEntities_NoteEntities_NoteId",
-                        column: x => x.NoteId,
-                        principalTable: "NoteEntities",
-                        principalColumn: "Id",
+                        "FK_BookingEntities_NoteEntities_NoteId",
+                        x => x.NoteId,
+                        "NoteEntities",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BookingEntities_PriorityEntity_PriorityId",
-                        column: x => x.PriorityId,
-                        principalTable: "PriorityEntity",
-                        principalColumn: "Id",
+                        "FK_BookingEntities_PriorityEntity_PriorityId",
+                        x => x.PriorityId,
+                        "PriorityEntity",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BookingEntities_ReasonEntities_ReasonId",
-                        column: x => x.ReasonId,
-                        principalTable: "ReasonEntities",
-                        principalColumn: "Id",
+                        "FK_BookingEntities_ReasonEntities_ReasonId",
+                        x => x.ReasonId,
+                        "ReasonEntities",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookingEntities_AssignedDateId",
-                table: "BookingEntities",
-                column: "AssignedDateId");
+                "IX_BookingEntities_AssignedDateId",
+                "BookingEntities",
+                "AssignedDateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookingEntities_NoteId",
-                table: "BookingEntities",
-                column: "NoteId");
+                "IX_BookingEntities_NoteId",
+                "BookingEntities",
+                "NoteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookingEntities_PriorityId",
-                table: "BookingEntities",
-                column: "PriorityId");
+                "IX_BookingEntities_PriorityId",
+                "BookingEntities",
+                "PriorityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookingEntities_ReasonId",
-                table: "BookingEntities",
-                column: "ReasonId");
+                "IX_BookingEntities_ReasonId",
+                "BookingEntities",
+                "ReasonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookingEntities_SubmitDateId",
-                table: "BookingEntities",
-                column: "SubmitDateId");
+                "IX_BookingEntities_SubmitDateId",
+                "BookingEntities",
+                "SubmitDateId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BookingEntities");
+                "BookingEntities");
 
             migrationBuilder.DropTable(
-                name: "DateEntities");
+                "DateEntities");
 
             migrationBuilder.DropTable(
-                name: "NoteEntities");
+                "NoteEntities");
 
             migrationBuilder.DropTable(
-                name: "PriorityEntity");
+                "PriorityEntity");
 
             migrationBuilder.DropTable(
-                name: "ReasonEntities");
+                "ReasonEntities");
         }
     }
 }

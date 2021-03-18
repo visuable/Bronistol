@@ -7,97 +7,97 @@ namespace Bronistol.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_DateEntities_AssignedDateId",
-                table: "BookingEntities");
+                "FK_BookingEntities_DateEntities_AssignedDateId",
+                "BookingEntities");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_DateEntities_SubmitDateId",
-                table: "BookingEntities");
+                "FK_BookingEntities_DateEntities_SubmitDateId",
+                "BookingEntities");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_NameEntity_NameId",
-                table: "BookingEntities");
+                "FK_BookingEntities_NameEntity_NameId",
+                "BookingEntities");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_PriorityEntity_PriorityId",
-                table: "BookingEntities");
+                "FK_BookingEntities_PriorityEntity_PriorityId",
+                "BookingEntities");
 
             migrationBuilder.DropPrimaryKey(
-                name: "PK_PriorityEntity",
-                table: "PriorityEntity");
+                "PK_PriorityEntity",
+                "PriorityEntity");
 
             migrationBuilder.DropPrimaryKey(
-                name: "PK_NameEntity",
-                table: "NameEntity");
+                "PK_NameEntity",
+                "NameEntity");
 
             migrationBuilder.DropPrimaryKey(
-                name: "PK_DateEntities",
-                table: "DateEntities");
+                "PK_DateEntities",
+                "DateEntities");
 
             migrationBuilder.DropColumn(
-                name: "DisplayDate",
-                table: "DateEntities");
+                "DisplayDate",
+                "DateEntities");
 
             migrationBuilder.DropColumn(
-                name: "ShortDate",
-                table: "DateEntities");
+                "ShortDate",
+                "DateEntities");
 
             migrationBuilder.RenameTable(
-                name: "PriorityEntity",
+                "PriorityEntity",
                 newName: "PriorityEntities");
 
             migrationBuilder.RenameTable(
-                name: "NameEntity",
+                "NameEntity",
                 newName: "NameEntities");
 
             migrationBuilder.RenameTable(
-                name: "DateEntities",
+                "DateEntities",
                 newName: "DateEntity");
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_PriorityEntities",
-                table: "PriorityEntities",
-                column: "Id");
+                "PK_PriorityEntities",
+                "PriorityEntities",
+                "Id");
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_NameEntities",
-                table: "NameEntities",
-                column: "Id");
+                "PK_NameEntities",
+                "NameEntities",
+                "Id");
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_DateEntity",
-                table: "DateEntity",
-                column: "Id");
+                "PK_DateEntity",
+                "DateEntity",
+                "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_DateEntity_AssignedDateId",
-                table: "BookingEntities",
-                column: "AssignedDateId",
-                principalTable: "DateEntity",
+                "FK_BookingEntities_DateEntity_AssignedDateId",
+                "BookingEntities",
+                "AssignedDateId",
+                "DateEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_DateEntity_SubmitDateId",
-                table: "BookingEntities",
-                column: "SubmitDateId",
-                principalTable: "DateEntity",
+                "FK_BookingEntities_DateEntity_SubmitDateId",
+                "BookingEntities",
+                "SubmitDateId",
+                "DateEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_NameEntities_NameId",
-                table: "BookingEntities",
-                column: "NameId",
-                principalTable: "NameEntities",
+                "FK_BookingEntities_NameEntities_NameId",
+                "BookingEntities",
+                "NameId",
+                "NameEntities",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_PriorityEntities_PriorityId",
-                table: "BookingEntities",
-                column: "PriorityId",
-                principalTable: "PriorityEntities",
+                "FK_BookingEntities_PriorityEntities_PriorityId",
+                "BookingEntities",
+                "PriorityId",
+                "PriorityEntities",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -105,101 +105,101 @@ namespace Bronistol.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_DateEntity_AssignedDateId",
-                table: "BookingEntities");
+                "FK_BookingEntities_DateEntity_AssignedDateId",
+                "BookingEntities");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_DateEntity_SubmitDateId",
-                table: "BookingEntities");
+                "FK_BookingEntities_DateEntity_SubmitDateId",
+                "BookingEntities");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_NameEntities_NameId",
-                table: "BookingEntities");
+                "FK_BookingEntities_NameEntities_NameId",
+                "BookingEntities");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_BookingEntities_PriorityEntities_PriorityId",
-                table: "BookingEntities");
+                "FK_BookingEntities_PriorityEntities_PriorityId",
+                "BookingEntities");
 
             migrationBuilder.DropPrimaryKey(
-                name: "PK_PriorityEntities",
-                table: "PriorityEntities");
+                "PK_PriorityEntities",
+                "PriorityEntities");
 
             migrationBuilder.DropPrimaryKey(
-                name: "PK_NameEntities",
-                table: "NameEntities");
+                "PK_NameEntities",
+                "NameEntities");
 
             migrationBuilder.DropPrimaryKey(
-                name: "PK_DateEntity",
-                table: "DateEntity");
+                "PK_DateEntity",
+                "DateEntity");
 
             migrationBuilder.RenameTable(
-                name: "PriorityEntities",
+                "PriorityEntities",
                 newName: "PriorityEntity");
 
             migrationBuilder.RenameTable(
-                name: "NameEntities",
+                "NameEntities",
                 newName: "NameEntity");
 
             migrationBuilder.RenameTable(
-                name: "DateEntity",
+                "DateEntity",
                 newName: "DateEntities");
 
             migrationBuilder.AddColumn<string>(
-                name: "DisplayDate",
-                table: "DateEntities",
-                type: "text",
+                "DisplayDate",
+                "DateEntities",
+                "text",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "ShortDate",
-                table: "DateEntities",
-                type: "text",
+                "ShortDate",
+                "DateEntities",
+                "text",
                 nullable: true);
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_PriorityEntity",
-                table: "PriorityEntity",
-                column: "Id");
+                "PK_PriorityEntity",
+                "PriorityEntity",
+                "Id");
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_NameEntity",
-                table: "NameEntity",
-                column: "Id");
+                "PK_NameEntity",
+                "NameEntity",
+                "Id");
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_DateEntities",
-                table: "DateEntities",
-                column: "Id");
+                "PK_DateEntities",
+                "DateEntities",
+                "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_DateEntities_AssignedDateId",
-                table: "BookingEntities",
-                column: "AssignedDateId",
-                principalTable: "DateEntities",
+                "FK_BookingEntities_DateEntities_AssignedDateId",
+                "BookingEntities",
+                "AssignedDateId",
+                "DateEntities",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_DateEntities_SubmitDateId",
-                table: "BookingEntities",
-                column: "SubmitDateId",
-                principalTable: "DateEntities",
+                "FK_BookingEntities_DateEntities_SubmitDateId",
+                "BookingEntities",
+                "SubmitDateId",
+                "DateEntities",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_NameEntity_NameId",
-                table: "BookingEntities",
-                column: "NameId",
-                principalTable: "NameEntity",
+                "FK_BookingEntities_NameEntity_NameId",
+                "BookingEntities",
+                "NameId",
+                "NameEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_BookingEntities_PriorityEntity_PriorityId",
-                table: "BookingEntities",
-                column: "PriorityId",
-                principalTable: "PriorityEntity",
+                "FK_BookingEntities_PriorityEntity_PriorityId",
+                "BookingEntities",
+                "PriorityId",
+                "PriorityEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }

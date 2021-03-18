@@ -1,23 +1,16 @@
-﻿using AutoMapper;
-
-using Bronistol.Database;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.EntitiesDto;
 using Bronistol.Database.Repositories;
-
-using Microsoft.EntityFrameworkCore;
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bronistol.Core.Supports
 {
     public class BookingSupport : IBookingSupport
     {
-        private IRepository<BookingEntity> _bookingEntityRepository;
-        private IMapper _mapper;
+        private readonly IRepository<BookingEntity> _bookingEntityRepository;
+        private readonly IMapper _mapper;
 
         public BookingSupport(IRepository<BookingEntity> bookingEntityRepository, IMapper mapper)
         {
@@ -35,10 +28,8 @@ namespace Bronistol.Core.Supports
         {
             var bookingEntities = await _bookingEntityRepository.GetAllAsync();
             var bookingEntitiesDto = new List<BookingEntityDto>();
-            foreach(var bookingEntity in bookingEntities)
-            {
+            foreach (var bookingEntity in bookingEntities)
                 bookingEntitiesDto.Add(_mapper.Map<BookingEntityDto>(bookingEntity));
-            }
             return bookingEntitiesDto;
         }
 

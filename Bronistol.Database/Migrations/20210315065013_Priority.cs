@@ -7,17 +7,17 @@ namespace Bronistol.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "Points",
-                table: "PriorityEntity",
-                newName: "Priority");
+                "Points",
+                "PriorityEntity",
+                "Priority");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "Priority",
-                table: "PriorityEntity",
-                newName: "Points");
+                "Priority",
+                "PriorityEntity",
+                "Points");
         }
     }
 }
