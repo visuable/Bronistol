@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Bronistol.Core.Extensions;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.EntitiesDto;
 using Bronistol.Database.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bronistol.Core.Supports
 {
@@ -27,9 +29,7 @@ namespace Bronistol.Core.Supports
         public async Task<List<BookingEntityDto>> GetBookingEntities()
         {
             var bookingEntities = await _bookingEntityRepository.GetAllAsync();
-            var bookingEntitiesDto = new List<BookingEntityDto>();
-            foreach (var bookingEntity in bookingEntities)
-                bookingEntitiesDto.Add(_mapper.Map<BookingEntityDto>(bookingEntity));
+            var bookingEntitiesDto = _mapper.MapList<BookingEntityDto, BookingEntity>(await bookingEntities.ToListAsync());
             return bookingEntitiesDto;
         }
 
