@@ -4,7 +4,6 @@ using System.Linq;
 using Bronistol.Commands;
 using Bronistol.Constants;
 using Bronistol.Database.Enumerations;
-using Bronistol.Options;
 using Bronistol.Options.Validations;
 using FluentValidation;
 using Microsoft.Extensions.Options;

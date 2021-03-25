@@ -4,12 +4,13 @@ using AutoMapper;
 using Bronistol.Commands;
 using Bronistol.Core.Supports;
 using Bronistol.Database.EntitiesDto;
+using Bronistol.Models.Responses;
 using Bronistol.Validators;
 using MediatR;
 
 namespace Bronistol.Handlers
 {
-    public class BookTableCommandHandler : IRequestHandler<BookTableRequest, DefaultResponse>
+    public class BookTableCommandHandler : IRequestHandler<BookTableRequest, Response<bool>>
     {
         private readonly IBookingSupport _bookingSupport;
         private readonly BookTableRequestValidator _bookTableRequestValidator;
@@ -23,12 +24,12 @@ namespace Bronistol.Handlers
             _mapper = mapper;
         }
 
-        public async Task<DefaultResponse> Handle(BookTableRequest request, CancellationToken cancellationToken)
+        public async Task<Response<bool>> Handle(BookTableRequest request, CancellationToken cancellationToken)
         {
             var result = await _bookTableRequestValidator.ValidateAsync(request, CancellationToken.None);
-            if (!result.IsValid) return new DefaultResponse {Response = false};
+            if (!result.IsValid) return new Response<bool> {Item = false};
             await _bookingSupport.AddBookingEntity(_mapper.Map<BookingEntityDto>(request.Table));
-            return new DefaultResponse {Response = true};
+            return new Response<bool> {Item = true};
         }
     }
 }

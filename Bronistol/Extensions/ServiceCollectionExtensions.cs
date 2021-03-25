@@ -5,7 +5,6 @@ using Bronistol.Core.Supports;
 using Bronistol.Database;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.Repositories;
-using Bronistol.Options;
 using Bronistol.Options.Validations;
 using FluentValidation;
 using MediatR;
