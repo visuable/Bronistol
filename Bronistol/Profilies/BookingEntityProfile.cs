@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.EntitiesDto;
 
@@ -31,6 +32,8 @@ namespace Bronistol.Profilies
                 .ReverseMap();
             CreateMap<DateEntityDto, DateEntity>()
                 .ForMember(x => x.Date, y => y.MapFrom(z => z.Date))
+                .ReverseMap();
+            CreateMap<List<BookingEntity>, List<BookingEntityDto>>()
                 .ReverseMap();
         }
     }
