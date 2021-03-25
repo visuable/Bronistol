@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Bronistol.Options
+﻿namespace Bronistol.Options.Validations
 {
     public class ValidationOptions
     {

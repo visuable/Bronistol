@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using Bronistol.Commands;
 using Bronistol.Constants;
-using Bronistol.Database.EntitiesDto;
 using Bronistol.Database.Enumerations;
 using Bronistol.Options;
+using Bronistol.Options.Validations;
 using FluentValidation;
 using Microsoft.Extensions.Options;
 
@@ -15,7 +13,8 @@ namespace Bronistol.Validators
 {
     public class BookTableRequestValidator : AbstractValidator<BookTableRequest>
     {
-        private IOptions<ValidationOptions> _validationOptions;
+        private readonly IOptions<ValidationOptions> _validationOptions;
+
         public BookTableRequestValidator(IOptions<ValidationOptions> validationOptions)
         {
             _validationOptions = validationOptions;

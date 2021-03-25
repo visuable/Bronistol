@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Bronistol.Database.DbEntities;
+﻿using Bronistol.Database.DbEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bronistol.Database

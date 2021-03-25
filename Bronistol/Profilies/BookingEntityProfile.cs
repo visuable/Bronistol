@@ -1,12 +1,8 @@
-﻿using System;
-using System.Globalization;
-using AutoMapper;
+﻿using AutoMapper;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.EntitiesDto;
-using Bronistol.Options;
-using Microsoft.Extensions.Options;
 
-namespace Bronistol.Profiles
+namespace Bronistol.Profilies
 {
     public class BookingEntityProfile : Profile
     {

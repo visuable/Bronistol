@@ -17,12 +17,14 @@ namespace Bronistol.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureDbContext(this IServiceCollection services,
+            IConfiguration configuration)
         {
             services.AddDbContext<BronistolContext>(x =>
                 x.UseNpgsql(configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
             return services;
         }
+
         public static IServiceCollection AddScopedServices(this IServiceCollection services)
         {
             services.AddScoped<IBookingSupport, BookingSupport>();
@@ -41,7 +43,8 @@ namespace Bronistol.Extensions
             return services;
         }
 
-        public static IServiceCollection ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureOptions(this IServiceCollection services,
+            IConfiguration configuration)
         {
             services.AddOptions();
             services.Configure<ValidationOptions>(configuration.GetSection(nameof(ValidationOptions)));
@@ -64,7 +67,6 @@ namespace Bronistol.Extensions
 
         public static IServiceCollection ConfigureMediatR(this IServiceCollection services)
         {
-
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
             return services;
         }

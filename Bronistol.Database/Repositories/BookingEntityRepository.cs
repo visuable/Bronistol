@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ namespace Bronistol.Database.Repositories
 {
     public class BookingEntityRepository : IRepository<BookingEntity>
     {
-        private BronistolContext _bronistolContext;
+        private readonly BronistolContext _bronistolContext;
 
         public BookingEntityRepository(BronistolContext bronistolContext)
         {

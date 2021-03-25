@@ -38,10 +38,7 @@ namespace Bronistol.Core.HostedServices.PriorityService
                     && x.SubmitDate.Date.Day == currentEntity.SubmitDate.Date.Day
                     && x.SubmitDate.Date.Hour == currentEntity.SubmitDate.Date.Hour
                     && x.SubmitDate.Date.Minute == currentEntity.SubmitDate.Date.Minute && x.Id != currentEntity.Id);
-            if (nextEntity == null)
-            {
-                return;
-            }
+            if (nextEntity == null) return;
 
             if (nextEntity.Priority.Priority > currentEntity.Priority.Priority)
             {

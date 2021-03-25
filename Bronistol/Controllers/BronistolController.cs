@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Threading.Tasks;
 using Bronistol.Commands;
-using Bronistol.Core.Supports;
-using Bronistol.Database.EntitiesDto;
 using Bronistol.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +11,7 @@ namespace Bronistol.Controllers
     [ApiController]
     public class BronistolController : ControllerBase
     {
-        private IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public BronistolController(IMediator mediator)
         {

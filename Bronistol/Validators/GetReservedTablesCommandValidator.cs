@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bronistol.Options.Validations;
+﻿using Bronistol.Options.Validations;
 using Bronistol.Requests;
 using FluentValidation;
 using Microsoft.Extensions.Options;
@@ -11,7 +7,8 @@ namespace Bronistol.Validators
 {
     public class GetReservedTablesCommandValidator : AbstractValidator<GetReservedTablesCommand>
     {
-        private IOptions<GetReservedTablesCommandValidatorOptions> _options;
+        private readonly IOptions<GetReservedTablesCommandValidatorOptions> _options;
+
         public GetReservedTablesCommandValidator(IOptions<GetReservedTablesCommandValidatorOptions> options)
         {
             _options = options;
