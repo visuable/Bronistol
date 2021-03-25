@@ -19,7 +19,7 @@ namespace Bronistol.Core.HostedServices.PriorityService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using var bookingEntityRepository = _serviceScopeFactory.GetServiceFromScope<IRepository<BookingEntity>>();
+            var bookingEntityRepository = _serviceScopeFactory.GetServiceFromScope<IRepository<BookingEntity>>();
             while (!stoppingToken.IsCancellationRequested)
             {
                 var firstEntity = await bookingEntityRepository.FirstAsync();
@@ -30,7 +30,7 @@ namespace Bronistol.Core.HostedServices.PriorityService
 
         private async Task Offset(BookingEntity currentEntity)
         {
-            using var bookingEntityRepository = _serviceScopeFactory.GetServiceFromScope<IRepository<BookingEntity>>();
+            var bookingEntityRepository = _serviceScopeFactory.GetServiceFromScope<IRepository<BookingEntity>>();
             var nextEntity = await bookingEntityRepository
                 .GetAsync(x =>
                     x.SubmitDate.Date.Year == currentEntity.SubmitDate.Date.Year
