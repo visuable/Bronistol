@@ -1,10 +1,16 @@
 using System;
 using System.Text.Json.Serialization;
+using AutoMapper;
 using Bronistol.Core.HostedServices.PriorityService;
 using Bronistol.Core.Supports;
 using Bronistol.Database;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.Repositories;
+using Bronistol.Extensions;
+using Bronistol.Options;
+using Bronistol.Profiles;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,17 +32,17 @@ namespace Bronistol
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
-            services.AddDbContext<BronistolContext>(x =>
-                x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IRepository<BookingEntity>, BookingEntityRepository>();
-            services.AddScoped<IBookingSupport, BookingSupport>();
-            services.AddHostedService<PriorityService>();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddSwaggerGen();
+            services
+                .AddScopedServices()
+                .AddHostedServices()
+                .AddRepositories()
+                .ConfigureAutoMapper()
+                .ConfigureDbContext(Configuration)
+                .ConfigureControllers()
+                .ConfigureMediatR()
+                .ConfigureOptions(Configuration)
+                .ConfigureSwagger()
+                .ConfigureValidators();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
