@@ -20,16 +20,16 @@ namespace Bronistol.Validators
             var defaultMessage = _validationOptions.Value.DefaultMessage;
 
             RuleFor(x => x.Table.Name)
-                .Must(x => !string.IsNullOrWhiteSpace(x)).WithMessage(defaultMessage);
+                .Must(x => !string.IsNullOrWhiteSpace(x.Name)).WithMessage(defaultMessage);
             RuleFor(x => x.Table.Reason)
-                .Must(x => !string.IsNullOrWhiteSpace(x)).WithMessage(defaultMessage);
+                .Must(x => !string.IsNullOrWhiteSpace(x.Description)).WithMessage(defaultMessage);
             RuleFor(x => x.Table.Priority)
-                .Must(x => Enum.GetNames(typeof(Priority)).Contains(x)).WithMessage(defaultMessage);
+                .Must(x => Enum.GetNames(typeof(Priority)).Contains(x.Priority)).WithMessage(defaultMessage);
             RuleFor(x => x.Table.SubmitDate)
-                .Must(x => DateTime.TryParseExact(x, AutoMapperConstants.DateTimeFormat, CultureInfo.InvariantCulture,
+                .Must(x => DateTime.TryParseExact(x.Date, AutoMapperConstants.DateTimeFormat, CultureInfo.InvariantCulture,
                     DateTimeStyles.AllowWhiteSpaces, out _));
             RuleFor(x => x.Table.AssignedDate)
-                .Must(x => DateTime.TryParseExact(x, AutoMapperConstants.DateTimeFormat, CultureInfo.InvariantCulture,
+                .Must(x => DateTime.TryParseExact(x.Date, AutoMapperConstants.DateTimeFormat, CultureInfo.InvariantCulture,
                     DateTimeStyles.AllowWhiteSpaces, out _));
         }
     }

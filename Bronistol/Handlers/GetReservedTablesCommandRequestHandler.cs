@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Bronistol.Core.Extensions;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.EntitiesDto;
 using Bronistol.Database.Repositories;
+using Bronistol.Extensions;
 using Bronistol.Models;
 using Bronistol.Models.Responses;
 using Bronistol.Requests;
@@ -37,14 +39,18 @@ namespace Bronistol.Handlers
         {
             var validationResult = await _getReservedTablesCommandValidator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid) throw new Exception("Request is invalid");
+
             var all = await _bookingEntityRepository.GetAllAsync();
+
             var count = request.Count + request.Offset * request.Count;
-            var items = all.Take(count);
-            var itemsDto = _mapper.ProjectTo<BookingEntityDto>(items);
-            var itemsViewModel = _mapper.ProjectTo<BookingEntityViewModel>(itemsDto);
+
+            var items = await all.Take(count).ToListAsync(cancellationToken);
+            var itemsDto = _mapper.MapList<BookingEntityDto, BookingEntity>(items);
+            var itemsViewModel = _mapper.MapList<BookingEntityViewModel, BookingEntityDto>(itemsDto);
+
             return new Response<List<BookingEntityViewModel>>
             {
-                Item = await itemsViewModel.ToListAsync(cancellationToken)
+                Item = itemsViewModel
             };
         }
     }
