@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Bronistol.Database.DbEntities;
@@ -10,7 +11,7 @@ namespace Bronistol.Database.Repositories
 {
     public class BookingEntityRepository : IRepository<BookingEntity>
     {
-        private readonly BronistolContext _bronistolContext;
+        private BronistolContext _bronistolContext;
 
         public BookingEntityRepository(BronistolContext bronistolContext)
         {
@@ -40,26 +41,14 @@ namespace Bronistol.Database.Repositories
             _bronistolContext.BookingEntities.Remove(entity);
         }
 
-        public async Task<IEnumerable<BookingEntity>> GetAllAsync()
+        public async Task<IQueryable<BookingEntity>> GetAllAsync()
         {
-            return await _bronistolContext.BookingEntities.IncludeBookingEntity().ToListAsync();
+            return await Task.FromResult(_bronistolContext.BookingEntities.IncludeBookingEntity().AsQueryable());
         }
 
         public async Task<BookingEntity> FirstAsync()
         {
             return await _bronistolContext.BookingEntities.IncludeBookingEntity().FirstOrDefaultAsync();
-        }
-
-        public void Dispose()
-        {
-            _bronistolContext.SaveChanges();
-            _bronistolContext.Dispose();
-        }
-
-        public async ValueTask DisposeAsync()
-        {
-            await _bronistolContext.SaveChangesAsync();
-            await _bronistolContext.DisposeAsync();
         }
     }
 }
