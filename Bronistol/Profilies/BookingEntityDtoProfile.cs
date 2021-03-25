@@ -33,8 +33,6 @@ namespace Bronistol.Profilies
             CreateMap<ReasonEntityDto, ReasonEntityViewModel>()
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
                 .ReverseMap();
-            CreateMap<List<BookingEntityDto>, List<BookingEntityViewModel>>()
-                .ReverseMap();
         }
     }
 }
