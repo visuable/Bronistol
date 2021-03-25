@@ -27,17 +27,20 @@ namespace Bronistol.Database.Repositories
         public async Task AddAsync(BookingEntity entity)
         {
             await _bronistolContext.BookingEntities.AddAsync(entity);
+            await SaveChangesAsync();
         }
 
         public async Task UpdateAsync(BookingEntity entity)
         {
             _bronistolContext.BookingEntities.Update(entity);
+            await SaveChangesAsync();
         }
 
         public async Task RemoveAsync(Expression<Func<BookingEntity, bool>> expression)
         {
             var entity = await _bronistolContext.BookingEntities.FirstOrDefaultAsync(expression);
             _bronistolContext.BookingEntities.Remove(entity);
+            await SaveChangesAsync();
         }
 
         public async Task<IQueryable<BookingEntity>> GetAllAsync()
@@ -48,6 +51,11 @@ namespace Bronistol.Database.Repositories
         public async Task<BookingEntity> FirstAsync()
         {
             return await _bronistolContext.BookingEntities.IncludeBookingEntity().FirstOrDefaultAsync();
+        }
+
+        private async Task SaveChangesAsync()
+        {
+            await _bronistolContext.SaveChangesAsync();
         }
     }
 }
