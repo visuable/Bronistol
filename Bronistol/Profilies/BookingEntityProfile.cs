@@ -3,8 +3,10 @@ using System.Globalization;
 using AutoMapper;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.EntitiesDto;
+using Bronistol.Options;
+using Microsoft.Extensions.Options;
 
-namespace Bronistol.Profilies
+namespace Bronistol.Profiles
 {
     public class BookingEntityProfile : Profile
     {
@@ -32,12 +34,8 @@ namespace Bronistol.Profilies
                 .ForMember(x => x.OrganizationName, y => y.MapFrom(z => z.OrganizationName))
                 .ReverseMap();
             CreateMap<DateEntityDto, DateEntity>()
-                .ForMember(x => x.Date,
-                    y => y.MapFrom(z =>
-                        DateTime.ParseExact(z.ShortDate, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)));
-            CreateMap<DateEntity, DateEntityDto>()
-                .ForMember(x => x.ShortDate,
-                    y => y.MapFrom(z => z.Date.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)));
+                .ForMember(x => x.Date, y => y.MapFrom(z => z.Date))
+                .ReverseMap();
         }
     }
 }
