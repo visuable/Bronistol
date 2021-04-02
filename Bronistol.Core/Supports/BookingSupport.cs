@@ -29,7 +29,7 @@ namespace Bronistol.Core.Supports
         public async Task<List<BookingEntityDto>> GetBookingEntities()
         {
             var bookingEntities = await _bookingEntityRepository.GetAllAsync();
-            var bookingEntitiesDto = _mapper.MapList<BookingEntityDto, BookingEntity>(await bookingEntities.ToListAsync());
+            var bookingEntitiesDto = _mapper.MapList<BookingEntityDto, BookingEntity>(bookingEntities);
             return bookingEntitiesDto;
         }
 
