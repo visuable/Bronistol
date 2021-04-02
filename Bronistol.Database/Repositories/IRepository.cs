@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -11,7 +12,8 @@ namespace Bronistol.Database.Repositories
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task RemoveAsync(Expression<Func<TEntity, bool>> expression);
-        Task<IQueryable<TEntity>> GetAllAsync();
+        Task<List<TEntity>> GetAllAsync();
         Task<TEntity> FirstAsync();
+        Task<List<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> expression);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -43,14 +44,19 @@ namespace Bronistol.Database.Repositories
             await SaveChangesAsync();
         }
 
-        public async Task<IQueryable<BookingEntity>> GetAllAsync()
+        public async Task<List<BookingEntity>> GetAllAsync()
         {
-            return await Task.FromResult(_bronistolContext.BookingEntities.IncludeBookingEntity().AsQueryable());
+            return await _bronistolContext.BookingEntities.IncludeBookingEntity().ToListAsync();
         }
 
         public async Task<BookingEntity> FirstAsync()
         {
             return await _bronistolContext.BookingEntities.IncludeBookingEntity().FirstOrDefaultAsync();
+        }
+
+        public async Task<List<BookingEntity>> WhereAsync(Expression<Func<BookingEntity, bool>> expression)
+        {
+            return await _bronistolContext.BookingEntities.IncludeBookingEntity().Where(expression).ToListAsync();
         }
 
         private async Task SaveChangesAsync()
