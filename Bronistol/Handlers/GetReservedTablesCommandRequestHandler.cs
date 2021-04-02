@@ -44,7 +44,7 @@ namespace Bronistol.Handlers
 
             var count = request.Count + request.Offset * request.Count;
 
-            var items = await all.Take(count).ToListAsync(cancellationToken);
+            var items = all.Take(count).ToList();
             var itemsDto = _mapper.MapList<BookingEntityDto, BookingEntity>(items);
             var itemsViewModel = _mapper.MapList<BookingEntityViewModel, BookingEntityDto>(itemsDto);
 

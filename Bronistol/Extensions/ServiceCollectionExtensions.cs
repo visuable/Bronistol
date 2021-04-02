@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 using Bronistol.Core.HostedServices.PriorityService;
+using Bronistol.Core.Options;
 using Bronistol.Core.Supports;
 using Bronistol.Database;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.Repositories;
+using Bronistol.Options;
 using Bronistol.Options.Validations;
 using FluentValidation;
 using MediatR;
@@ -49,6 +51,7 @@ namespace Bronistol.Extensions
             services.Configure<ValidationOptions>(configuration.GetSection(nameof(ValidationOptions)));
             services.Configure<GetReservedTablesCommandValidatorOptions>(
                 configuration.GetSection(nameof(GetReservedTablesCommandValidatorOptions)));
+            services.Configure<AutoClearOptions>(configuration.GetSection(nameof(AutoClearOptions)));
             return services;
         }
 
