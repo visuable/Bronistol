@@ -85,6 +85,7 @@ namespace Bronistol.Extensions
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+            services.AddRazorPages();
             return services;
         }
     }

@@ -46,7 +46,7 @@ namespace Bronistol
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapSwagger();
             });
         }
