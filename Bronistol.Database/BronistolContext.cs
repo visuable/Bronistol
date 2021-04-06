@@ -9,6 +9,10 @@ namespace Bronistol.Database
         {
         }
 
+        public BronistolContext()
+        {
+        }
+
         public DbSet<BookingEntity> BookingEntities { get; set; }
         public DbSet<ReasonEntity> ReasonEntities { get; set; }
         public DbSet<NoteEntity> NoteEntities { get; set; }
@@ -16,9 +20,7 @@ namespace Bronistol.Database
         public DbSet<NameEntity> NameEntities { get; set; }
         public DbSet<DateEntity> AssignedDates { get; set; }
         public DbSet<DateEntity> SubmitDates { get; set; }
-        public BronistolContext()
-        {
-        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql(

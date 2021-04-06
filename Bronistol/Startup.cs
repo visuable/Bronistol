@@ -48,6 +48,7 @@ namespace Bronistol
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapSwagger();
+                endpoints.MapRazorPages();
             });
         }
     }

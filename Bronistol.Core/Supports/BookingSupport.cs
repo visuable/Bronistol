@@ -5,7 +5,6 @@ using Bronistol.Core.Extensions;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.EntitiesDto;
 using Bronistol.Database.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Bronistol.Core.Supports
 {

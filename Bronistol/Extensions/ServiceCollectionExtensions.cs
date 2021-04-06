@@ -6,7 +6,6 @@ using Bronistol.Core.Supports;
 using Bronistol.Database;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.Repositories;
-using Bronistol.Options;
 using Bronistol.Options.Validations;
 using FluentValidation;
 using MediatR;
@@ -81,7 +80,7 @@ namespace Bronistol.Extensions
 
         public static IServiceCollection ConfigureControllers(this IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(options =>
+            services.AddMvc().AddControllersAsServices().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });

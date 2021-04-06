@@ -8,13 +8,11 @@ using Bronistol.Core.Extensions;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.EntitiesDto;
 using Bronistol.Database.Repositories;
-using Bronistol.Extensions;
 using Bronistol.Models;
 using Bronistol.Models.Responses;
 using Bronistol.Requests;
 using Bronistol.Validators;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Bronistol.Handlers
 {

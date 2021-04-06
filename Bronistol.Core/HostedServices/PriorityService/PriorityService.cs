@@ -61,21 +61,19 @@ namespace Bronistol.Core.HostedServices.PriorityService
             }
             else
             {
-
                 return;
             }
+
             await Offset(nextEntity);
         }
+
         private async Task ClearOverdue(IRepository<BookingEntity> repository, IOptions<AutoClearOptions> options)
         {
             var dateTimeNow = DateTime.UtcNow;
             var bookingEntities = await repository
                 .WhereAsync(x => x.AssignedDate.Date
                     .AddDays(options.Value.DaysLater) < dateTimeNow);
-            foreach (var bookingEntity in bookingEntities)
-            {
-                await repository.RemoveAsync(x => x.Id == bookingEntity.Id);
-            }
+            foreach (var bookingEntity in bookingEntities) await repository.RemoveAsync(x => x.Id == bookingEntity.Id);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Bronistol.Database.DbEntities;
 using Bronistol.Database.EntitiesDto;
 
