@@ -1,0 +1,22 @@
+﻿@page
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Bronistol.Constants
+@model Bronistol.Pages.BookTableModel
+@{
+}
+
+<form method="post">
+    <label for="name">Стол: </label>
+    <input id="name" asp-for="@Model.BookingEntityPageModel.Name"/>
+    <label for="submitDate">@($"Дата начала в формате {AutoMapperConstants.DateTimeFormat}: ")</label>
+    <input id="submitDate" asp-for="@Model.BookingEntityPageModel.SubmitDate"/>
+    <label for="assignedDate">@($"Дата окончания в формате {AutoMapperConstants.DateTimeFormat}: ")</label>
+    <input id="assignedDate" asp-for="@Model.BookingEntityPageModel.AssignedDate"/>
+    <label for="reason">Причина: </label>
+    <input id="reason" asp-for="@Model.BookingEntityPageModel.Reason"/>
+    <label for="note">Примечание: </label>
+    <input id="note" asp-for="@Model.BookingEntityPageModel.Note"/>
+    <label for="priority">Приоритет: </label>
+    <input id="priority" asp-for="@Model.BookingEntityPageModel.Priority"/>
+    <input type="submit" value="Отправить" asp-page-handler="Submit"/>
+</form>

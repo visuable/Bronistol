@@ -1,0 +1,24 @@
+﻿@page
+@using Bronistol.Core.Supports
+@model Bronistol.Pages.IndexModel
+@{
+}
+
+@inject IBookingSupport bookingSupport;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<ul>
+    @foreach (var table in await bookingSupport.GetBookingEntities())
+    {
+        var tableViewRow = $"Стол: {table.Name.ShortName} | " +
+                           $"Начало: {table.SubmitDate.Date} | " +
+                           $"Окончание: {table.AssignedDate.Date} | " +
+                           $"Причина: {table.Reason.Description} | " +
+                           $"Примечание: {table.Note.Description} | " +
+                           $"Приоритет: {table.Priority.Priority} | ";
+        <li>@tableViewRow</li>
+    }
+</ul>
